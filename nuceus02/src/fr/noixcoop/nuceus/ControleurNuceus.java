@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class ControleurNuceus extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private MetierVarietes metierVarietes ;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -19,12 +20,46 @@ public class ControleurNuceus extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
+    
+    public void init() throws ServletException {
+    	metierVarietes = new MetierVarietes() ;
+    }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		String action = request.getParameter("action") ;
+		if(action == null){
+			action = "visualiser" ;
+		}
+		
+		if(action.equals("visualiser") || action.equals("annulerAjout")){
+			request.setAttribute("varietes", metierVarietes.consulter());
+			getServletContext().getRequestDispatcher("/WEB-INF/vues/vueListe.jsp").forward(request,response) ;
+		}
+		else if(action.equals("renseignerAjout")){
+			getServletContext().getRequestDispatcher("/WEB-INF/vues/vueFormulaireAjout.jsp").forward(request, response);
+		}
+		else if(action.equals("ajouter")){
+			String libelle = request.getParameter("libelle");
+			String aoc = request.getParameter("aoc") ;
+			boolean aocObtenu ;
+			if(aoc == null){
+				aoc = "non" ;
+				aocObtenu = false ;
+			}
+			else{
+				aoc = "oui" ;
+				aocObtenu = true ;
+			}
+			boolean ajoutOk = metierVarietes.ajouter(new Variete(libelle, aocObtenu)) ;
+			if(ajoutOk == true){
+				getServletContext().getRequestDispatcher("/WEB-INF/vues/vueResultatAjout.jsp").forward(request, response);
+			}else{
+				getServletContext().getRequestDispatcher("/WEB-INF/vues/vueResultatAjout.jsp").forward(request, response) ;
+			}
+		}
 	}
 
 	/**
