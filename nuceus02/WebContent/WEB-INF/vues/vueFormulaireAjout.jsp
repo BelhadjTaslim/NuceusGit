@@ -4,7 +4,7 @@
 	<meta charset = "utf8">
 </head>
 <body>
-	<form action="get">
+	<form method="get">
 		<label for="libelle">Libellé : </label>
 		<input type="text" id="libelle" name="libelle" value="" size="20" />
 		<label for="aoc">AOC :</label>

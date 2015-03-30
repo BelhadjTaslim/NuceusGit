@@ -72,15 +72,13 @@ public class MetierVarietes {
 	 * @return true si l'ajout s'est déroulé avec succès
 	 */
 	public boolean ajouter(Variete variete){
-		boolean resultat ;
-		if(variete != varietes){
+		if(this.consulter(variete.getLibelle()) != variete){
 			varietes.add(variete) ;
-			resultat = true ;
+			return true ;
 		}
 		else{
-			resultat = false ;			
+			return false ;
 		}
-		return resultat ;
 	}
 	
 	/** Modifier les caractéristiques d'une variété
