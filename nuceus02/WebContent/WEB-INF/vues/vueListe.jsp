@@ -10,7 +10,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link type="text/css" href="style/bootstrap-3.3.2-dist/css/bootstrap.css" rel="stylesheet" >
-<title>Nuceus 0.1</title>
+<title>Nuceus 0.2</title>
 </head>
 <body>
 <!-- 		<navbar class="navbar navbar-header navbar-fixed-top navbar-inverse"> -->
@@ -32,14 +32,15 @@
 		<div class="row">
 		<div class="col-lg-12">
 		<%
-			List<Variete> varietes = metier.consulter();
+			List<Variete> varietes = (List<Variete>)request.getAttribute("varietes");
 		%>
 		<div class="col-lg-2"></div>
 		<table class="col-lg-8" border="1" style="border-collapse:collapse">
 			<thead>
 					<tr>
 						<th class="col-md-6 text-center bg-primary">Libellé</th>
-						<th class="col-md-6 text-center bg-primary">AOC</th>
+						<th class="col-md-4 text-center bg-primary">AOC</th>
+						<th class="col-md-2 text-center bg-primary">Supprimer</th>
 					</tr>
 			</thead>
 			
@@ -60,6 +61,7 @@
 							
 						%>
 						<td><%= aoc %></td>
+						<td><button class="btn btn-danger" style="width:100%">Supprimer</button></td>
 					</tr>
 					<%
 						}
